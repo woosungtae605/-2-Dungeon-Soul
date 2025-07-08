@@ -46,22 +46,21 @@ public class Dash : MonoBehaviour
         _canDash = false;
         _isDashing = true;
 
-        // 대시
-        float dashTimer = 0f;
-        while (dashTimer < _dashTime)
-        {
-            _rb.linearVelocity = direction * _dashSpeed;
-            dashTimer += Time.deltaTime;
-            yield return null;
-        }
 
-        // 슬라이딩
         Vector2 slideVelocity = _rb.linearVelocity;
         float slideTimer = 0f;
         while (slideTimer < slideDuration)
         {
-            _rb.linearVelocity = Vector2.Lerp(slideVelocity, Vector2.zero, slideTimer / slideDuration);
+            _rb.linearVelocity =  direction * _dashSpeed / 2.5f;
             slideTimer += Time.deltaTime;
+            yield return null;
+        }
+        // 대시
+        float dashTimer = 0f;
+        while (dashTimer < _dashTime)
+        {
+            _rb.linearVelocity = direction * _dashSpeed *1.9f;
+            dashTimer += Time.deltaTime;
             yield return null;
         }
 
